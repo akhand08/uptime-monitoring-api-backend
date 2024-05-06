@@ -4,6 +4,7 @@
 const sampleRouteHandler = require("./routeHandlers/sample");
 const usersRouteHandler = require("./routeHandlers/users");
 const {tokensRouteHandler} = require("./routeHandlers/tokens");
+const {checkersRouteHandler} = require("./routeHandlers/checkers");
 
 
 //  module wrapper
@@ -11,7 +12,8 @@ const {tokensRouteHandler} = require("./routeHandlers/tokens");
 const routes = {
     "sample": sampleRouteHandler,
     "users": usersRouteHandler,
-    "tokens": tokensRouteHandler
+    "tokens": tokensRouteHandler,
+    "checkers": checkersRouteHandler
     
 }
 
