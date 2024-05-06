@@ -66,7 +66,7 @@ handler._methods.post = (reqProps , cb) => {
                         if(!err) {
 
                             cb(200, {
-                                "Error Message": "Token Has been Created Successfull"
+                                "Success Message": "Token Has been Created Successfull"
                             })
 
                         }

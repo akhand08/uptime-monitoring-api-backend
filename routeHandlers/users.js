@@ -136,7 +136,7 @@ handler._methods.post = (reqProps, cb) => {
     
 
 
-    console.log(firstName, lastName, phone, password);
+   
 
 }
 
@@ -170,6 +170,39 @@ handler._methods.put = (reqProps, cb) => {
                     phone,
                     "password": hashPassword(password)
                 }
+
+                dataController.read("users", phone, (userReadError, userData) => {
+
+                    if(!userReadError && userData) {
+
+                        userData = JSON.parse(userData);
+                        let userCheckers = typeof(userData.checkers) === 'object' && userData.checkers instanceof Array ?
+                        userData.checkers : [];
+
+                        updatedUserData.checkers = userCheckers;
+
+                        dataController.update("users", phone, updatedUserData, (err) => {
+                            if(!err) {
+                                cb(200, {
+                                    "Success Message": "User Info Updated Successfully"
+                                })
+                            }
+                            else {
+                                cb(404, {
+                                    "Error Message": "No user found"
+                                })
+                            }
+                        } )
+
+                    }
+                    else {
+                        cb(404, {
+                            "Error Message": "Server side error on reading User File"
+                        })
+                    }
+                })
+
+                
         
                 dataController.update("users", phone, updatedUserData, (err) => {
                     if(!err) {
