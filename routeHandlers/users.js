@@ -99,7 +99,9 @@ handler._methods.post = (reqProps, cb) => {
                     firstName,
                     lastName,
                     phone,
-                    "password": hashPassword(password)
+                    "password": hashPassword(password),
+                    "checkers": [],
+                    "monitorResult": []
 
                 }
 
@@ -174,12 +176,13 @@ handler._methods.put = (reqProps, cb) => {
                 dataController.read("users", phone, (userReadError, userData) => {
 
                     if(!userReadError && userData) {
-
+                        
                         userData = JSON.parse(userData);
                         let userCheckers = typeof(userData.checkers) === 'object' && userData.checkers instanceof Array ?
                         userData.checkers : [];
 
                         updatedUserData.checkers = userCheckers;
+                        console.log(updatedUserData);
 
                         dataController.update("users", phone, updatedUserData, (err) => {
                             if(!err) {
@@ -201,23 +204,6 @@ handler._methods.put = (reqProps, cb) => {
                         })
                     }
                 })
-
-                
-        
-                dataController.update("users", phone, updatedUserData, (err) => {
-                    if(!err) {
-                        cb(200, {
-                            "Success Message": "User Info Updated Successfully"
-                        })
-                    }
-                    else {
-                        cb(404, {
-                            "Error Message": "No user found"
-                        })
-                    }
-                } )
-        
-        
         
             }
             else {

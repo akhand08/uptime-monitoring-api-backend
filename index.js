@@ -11,6 +11,7 @@
 // dependencies
 
 const serverInit = require("./helpers/lib/server");
+const workerInit = require("./helpers/lib/worker");
 
 
 // App object - module scaffolding
@@ -19,6 +20,7 @@ const app = {};
 
 app.init = () => {
     serverInit();
+    workerInit();
 }
 
 app.init();
