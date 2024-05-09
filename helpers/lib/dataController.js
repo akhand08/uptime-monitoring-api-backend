@@ -62,31 +62,21 @@ dataHandler.read = (dir, file, cb) => {
 
 
 dataHandler.update = (dir, file, content, cb) => {
-    fs.open(path.join(dataHandler.basedir, dir, file + ".json"), "r+", (err, fd) => {
-        if(!err && fd) {
+    const filePath = path.join(dataHandler.basedir, dir, file + ".json");
 
-            content = JSON.stringify(content);
-            fs.appendFile(fd, content, (err) => {
-                if(!err) {
-                    fs.close(fd, (err) => {
-                        if(!err) {
-                            cb(null);
-                        }
-                        else {
-                            cb(err);
-                        }
-                    })
-                }
-                else {
-                    cb(err);
-                }
-            })
-        }
-        else {
+    // Convert content to JSON string
+    const jsonContent = JSON.stringify(content);
+
+    // Write new content to the file
+    fs.writeFile(filePath, jsonContent, (err) => {
+        if (err) {
             cb(err);
+        } else {
+            cb(null);
         }
-    })
-}
+    });
+};
+
 
 
 dataHandler.delete = (dir, file, cb) => {
@@ -101,4 +91,25 @@ dataHandler.delete = (dir, file, cb) => {
     })
     
 }
+
+
+
+dataHandler.getList = (dir,  cb) => {
+    fs.readdir(path.join(dataHandler.basedir, dir), (err, files) => {
+        if(!err && files) {
+            cb(null, files);
+            
+        }
+        else {
+            cb(true)
+            
+        }
+    })
+}
+
+
+
+
+// export 
+
 module.exports = dataHandler;
