@@ -113,7 +113,7 @@ handler._methods.post = (reqProps, cb) => {
                     }
                     else {
                         cb(400, {
-                            "Error Message": "Sorry cannot create account"
+                            "Error Message": "Sorry cannot create account for server side problem on creating file"
                         })
                     }
                 })

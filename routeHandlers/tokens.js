@@ -21,7 +21,7 @@ handler.tokensRouteHandler = (reqProps, cb) => {
     }
     else {
         cb(405, {
-            "Error Message": "Request method is not acceptable"
+            "Error Message": "Request method is not allowed"
         })
     }
 
@@ -73,7 +73,7 @@ handler._methods.post = (reqProps , cb) => {
                         else {
 
                             cb(404, {
-                                "Error Message": "Server Side Error"
+                                "Error Message": "Server Side Error on creating token file"
                             })
 
                         }
@@ -81,7 +81,7 @@ handler._methods.post = (reqProps , cb) => {
 
                 }
                 else {
-                    cb(404, {
+                    cb(401, {
                         "Error Message": "Password is not valid"
                     })
                 }
@@ -127,7 +127,7 @@ handler._methods.get = (reqProps, cb) => {
             }
             else {
                 cb(404, {
-                    "Error Message": "Token cannot found"
+                    "Error Message": "Token cannot be found"
                 })
 
             }
@@ -174,7 +174,7 @@ handler._methods.put = (reqProps, cb) => {
                         else {
 
                             cb(404, {
-                                "Error Message": "Sorry cannot update"
+                                "Error Message": "Sorry cannot update for not finding the file"
                             })
 
                         }
@@ -183,8 +183,8 @@ handler._methods.put = (reqProps, cb) => {
 
                 }
                 else {
-                    cb(404, {
-                        "Error Message": "It has already been expired"
+                    cb(401, {
+                        "Error Message": "Token has already been expired"
                     })
                 }
 
@@ -219,13 +219,13 @@ handler._methods.delete = (reqProps, cb) => {
             if(!err) {
 
                 cb(200, {
-                    "Message": "Token Id Has been deleted successfully"
+                    "Success Message": "Token Id Has been deleted successfully"
                 })
 
             }
             else {
                 cb(404, { 
-                    "Message": "Server Side Problem"
+                    "Error Message": "Server Side Problem"
                 })
 
             }
@@ -234,7 +234,7 @@ handler._methods.delete = (reqProps, cb) => {
     }
     else {
         cb(404, { 
-            "Message": "Invalid Token Id"
+            "Error Message": "Invalid Token Id"
         })
     }
 
